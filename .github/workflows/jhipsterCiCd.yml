@@ -6,18 +6,17 @@ on:
     paths:
       - 2_supplychain/2_praxis/DemoApplication/app/**
   pull_request:
-    branches: [ "**" ]
+    branches: ["**"]
     paths:
       - 2_supplychain/2_praxis/DemoApplication/app/**
   workflow_dispatch:
 jobs:
   pipeline:
-    name: app pipeline
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.pull_request.title, '[skip ci]') && !contains(github.event.pull_request.title, '[ci skip]')"
     timeout-minutes: 40
     env:
-      NODE_VERSION: 18.18.2
+      NODE_VERSION: v24.2.0
       SPRING_OUTPUT_ANSI_ENABLED: DETECT
       SPRING_JPA_SHOW_SQL: false
       JHI_DISABLE_WEBPACK_LOGS: true
@@ -26,10 +25,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.18.2
+          node-version: v24.2.0
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 17
       - name: Install node.js packages
         run: npm install
@@ -50,6 +49,5 @@ jobs:
         run: |
           GIT_TAG=:${GITHUB_REF#refs/tags/}
           DOCKER_TAG=${GIT_TAG#:refs/heads/main}
-          ./mvnw -ntp jib:build -Djib.to.image=ntdominikpabst/hipsterapp${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}" -Pprod
+          ./mvnw -ntp jib:build -Djib.to.image=ntdominikpabst/hipsterapp${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}" -Pprod
         working-directory: ./2_supplychain/2_praxis/DemoApplication/app/
-
