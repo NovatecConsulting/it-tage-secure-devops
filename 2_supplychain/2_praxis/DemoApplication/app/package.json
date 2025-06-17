@@ -102,9 +102,9 @@
     "zone.js": "0.13.3"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "16.0.1",
-    "@angular-builders/jest": "16.0.1",
-    "@angular-devkit/build-angular": "16.2.9",
+    "@angular-builders/custom-webpack": "19.0.1",
+    "@angular-builders/jest": "19.0.1",
+    "@angular-devkit/build-angular": "20.0.2",
     "@angular-eslint/eslint-plugin": "16.2.0",
     "@angular/cli": "16.2.9",
     "@angular/compiler-cli": "16.2.11",
@@ -129,7 +129,7 @@
     "jest-date-mock": "1.0.8",
     "jest-environment-jsdom": "29.7.0",
     "jest-junit": "16.0.0",
-    "jest-preset-angular": "13.1.2",
+    "jest-preset-angular": "14.6.0",
     "jest-sonar": "0.2.16",
     "merge-jsons-webpack-plugin": "2.0.1",
     "rimraf": "5.0.5",
