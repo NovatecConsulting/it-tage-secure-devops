@@ -7,14 +7,13 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "lint": "eslint --fix --ext .js,.jsx .",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --ci",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,6 +41,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "react-scripts": "^0.0.0"
   }
 }
