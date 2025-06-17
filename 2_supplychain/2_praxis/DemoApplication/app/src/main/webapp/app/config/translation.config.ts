@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const translationNotFoundMessage = 'translation-not-found';
 
 export class MissingTranslationHandlerImpl implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): string {
-    const key = params.key;
+    const { key } = params;
     return `${translationNotFoundMessage}[${key}]`;
   }
 }

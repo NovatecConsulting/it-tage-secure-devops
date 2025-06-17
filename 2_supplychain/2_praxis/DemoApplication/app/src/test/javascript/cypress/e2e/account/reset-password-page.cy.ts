@@ -1,10 +1,10 @@
 import {
-  usernameLoginSelector,
-  forgetYourPasswordSelector,
-  emailResetPasswordSelector,
-  submitInitResetPasswordSelector,
   classInvalid,
   classValid,
+  emailResetPasswordSelector,
+  forgetYourPasswordSelector,
+  submitInitResetPasswordSelector,
+  usernameLoginSelector,
 } from '../../support/commands';
 
 describe('forgot your password', () => {
@@ -30,6 +30,6 @@ describe('forgot your password', () => {
   it('should be able to init reset password', () => {
     cy.get(emailResetPasswordSelector).type('user@gmail.com');
     cy.get(submitInitResetPasswordSelector).click({ force: true });
-    cy.wait('@initResetPassword').then(({ response }) => expect(response.statusCode).to.equal(200));
+    cy.wait('@initResetPassword').then(({ response }) => expect(response?.statusCode).to.equal(200));
   });
 });

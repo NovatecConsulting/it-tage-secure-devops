@@ -1,8 +1,8 @@
 jest.mock('app/login/login.service');
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -32,8 +32,8 @@ describe('Navbar Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NavbarComponent, HttpClientTestingModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
-      providers: [LoginService],
+      imports: [NavbarComponent, TranslateModule.forRoot()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), LoginService],
     })
       .overrideTemplate(NavbarComponent, '')
       .compileComponents();
@@ -46,7 +46,7 @@ describe('Navbar Component', () => {
     profileService = TestBed.inject(ProfileService);
   });
 
-  it('Should call profileService.getProfileInfo on init', () => {
+  it('should call profileService.getProfileInfo on init', () => {
     // GIVEN
     jest.spyOn(profileService, 'getProfileInfo').mockReturnValue(of(new ProfileInfo()));
 
@@ -57,27 +57,27 @@ describe('Navbar Component', () => {
     expect(profileService.getProfileInfo).toHaveBeenCalled();
   });
 
-  it('Should hold current authenticated user in variable account', () => {
+  it('should hold current authenticated user in variable account', () => {
     // WHEN
     comp.ngOnInit();
 
     // THEN
-    expect(comp.account).toBeNull();
+    expect(comp.account()).toBeNull();
 
     // WHEN
     accountService.authenticate(account);
 
     // THEN
-    expect(comp.account).toEqual(account);
+    expect(comp.account()).toEqual(account);
 
     // WHEN
     accountService.authenticate(null);
 
     // THEN
-    expect(comp.account).toBeNull();
+    expect(comp.account()).toBeNull();
   });
 
-  it('Should hold current authenticated user in variable account if user is authenticated before page load', () => {
+  it('should hold current authenticated user in variable account if user is authenticated before page load', () => {
     // GIVEN
     accountService.authenticate(account);
 
@@ -85,12 +85,12 @@ describe('Navbar Component', () => {
     comp.ngOnInit();
 
     // THEN
-    expect(comp.account).toEqual(account);
+    expect(comp.account()).toEqual(account);
 
     // WHEN
     accountService.authenticate(null);
 
     // THEN
-    expect(comp.account).toBeNull();
+    expect(comp.account()).toBeNull();
   });
 });

@@ -1,27 +1,30 @@
-import { Component, OnInit, RendererFactory2, Renderer2 } from '@angular/core';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Component, OnInit, Renderer2, RendererFactory2, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { AppPageTitleStrategy } from 'app/app-page-title-strategy';
-import { Router } from '@angular/router';
+import FooterComponent from '../footer/footer.component';
+import PageRibbonComponent from '../profiles/page-ribbon.component';
 
 @Component({
   selector: 'jhi-main',
   templateUrl: './main.component.html',
   providers: [AppPageTitleStrategy],
+  imports: [RouterOutlet, FooterComponent, PageRibbonComponent],
 })
 export default class MainComponent implements OnInit {
-  private renderer: Renderer2;
+  private readonly renderer: Renderer2;
 
-  constructor(
-    private router: Router,
-    private appPageTitleStrategy: AppPageTitleStrategy,
-    private accountService: AccountService,
-    private translateService: TranslateService,
-    rootRenderer: RendererFactory2,
-  ) {
-    this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
+  private readonly router = inject(Router);
+  private readonly appPageTitleStrategy = inject(AppPageTitleStrategy);
+  private readonly accountService = inject(AccountService);
+  private readonly translateService = inject(TranslateService);
+  private readonly rootRenderer = inject(RendererFactory2);
+
+  constructor() {
+    this.renderer = this.rootRenderer.createRenderer(document.querySelector('html'), null);
   }
 
   ngOnInit(): void {

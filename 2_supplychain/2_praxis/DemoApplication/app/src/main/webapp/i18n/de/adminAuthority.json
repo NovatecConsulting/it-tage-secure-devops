@@ -1,0 +1,23 @@
+{
+  "appApp": {
+    "adminAuthority": {
+      "home": {
+        "title": "Authorities",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Authority erstellen",
+        "createOrEditLabel": "Authority erstellen oder bearbeiten",
+        "notFound": "Keine Authorities gefunden"
+      },
+      "created": "Authority erstellt mit ID {{ param }}",
+      "updated": "Authority aktualisiert mit ID {{ param }}",
+      "deleted": "Authority gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Authority {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Authority"
+      },
+      "name": "Name"
+    }
+  }
+}

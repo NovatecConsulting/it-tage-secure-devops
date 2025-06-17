@@ -1,11 +1,11 @@
 import {
-  usernameRegisterSelector,
+  classInvalid,
+  classValid,
   emailRegisterSelector,
   firstPasswordRegisterSelector,
   secondPasswordRegisterSelector,
   submitRegisterSelector,
-  classInvalid,
-  classValid,
+  usernameRegisterSelector,
 } from '../../support/commands';
 
 describe('/account/register', () => {
@@ -77,13 +77,13 @@ describe('/account/register', () => {
   });
 
   it('register a valid user', () => {
-    const randomEmail = 'Edwina77@yahoo.com';
-    const randomUsername = 'Bridie70';
+    const randomEmail = 'Carlotta.Collins70@gmail.com';
+    const randomUsername = 'Karl.Abshire';
     cy.get(usernameRegisterSelector).type(randomUsername);
     cy.get(emailRegisterSelector).type(randomEmail);
     cy.get(firstPasswordRegisterSelector).type('jondoe');
     cy.get(secondPasswordRegisterSelector).type('jondoe');
     cy.get(submitRegisterSelector).click();
-    cy.wait('@registerSave').then(({ response }) => expect(response.statusCode).to.equal(201));
+    cy.wait('@registerSave').then(({ response }) => expect(response?.statusCode).to.equal(201));
   });
 });
