@@ -1,4 +1,4 @@
-!["Novatec perfect flow"](./99_assets/images/perfect-flow.jpeg)
+!["Novatec perfect flow"](./99_assets/images/cgi-repo-banner.jpg)
 # DevSecOps-Workshop – Agile Sicherheit in der Software-Entwicklung
 
 Willkommen zum DevSecOps-Workshop von Novatec. In diesem Workshop lernen Sie die Grundlagen von DevOps und Security kennen und erfahren, wie Sie Sicherheit in Ihre Software-Entwicklung integrieren können.
