@@ -1,0 +1,30 @@
+name: React CI Pipeline
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 0_devops/2_praxis/ContinuousIntegration/Demo/react-app/**
+  workflow_dispatch:
+jobs:
+  react-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install 🔧
+        run: npm set strict-ssl false && npm install -g react-scripts --verbose && npm install --verbose
+        working-directory: ./0_devops/2_praxis/ContinuousIntegration/Demo/react-app
+
+      - name: Lint 🧐
+        run: npm run lint
+        working-directory: ./0_devops/2_praxis/ContinuousIntegration/Demo/react-app
+
+      - name: Test 🚨
+        run: npm run test
+        working-directory: ./0_devops/2_praxis/ContinuousIntegration/Demo/react-app
+
+      - name: Build 🏗️
+        run: npm run build
+        working-directory: ./0_devops/2_praxis/ContinuousIntegration/Demo/react-app

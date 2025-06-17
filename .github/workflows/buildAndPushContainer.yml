@@ -1,0 +1,77 @@
+# This YAML file contains a GitHub Actions workflow that builds and deploys a Docker image to Docker Hub.
+# The workflow is triggered on push events to the main branch and runs on an Ubuntu latest runner.
+# It checks out the repository, sets up QEMU and Docker Buildx, logs in to Docker Hub, builds and pushes the Docker image,
+# and logs out from Docker Hub.
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 2_supplychain/2_praxis/DemoContainerSecurity/container/**
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - 2_supplychain/2_praxis/DemoContainerSecurity/container/**
+  workflow_dispatch:
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Docker Setup QEMU 🖥️
+        uses: docker/setup-qemu-action@v3.0.0
+
+      - name: Docker Setup Buildx 🛠️
+        uses: docker/setup-buildx-action@v3.1.0
+
+      - name: Login to Docker Hub 💁‍♀️🐳
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image 🛠️💾↗️
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: docker/build-push-action@v5.2.0
+        with:
+          context: ./2_supplychain/2_praxis/DemoContainerSecurity/container/
+          file: ./2_supplychain/2_praxis/DemoContainerSecurity/container/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ntdominikpabst/it-tage-ffm-2023-devops:latest
+            ntdominikpabst/it-tage-ffm-2023-devops:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image for pull request 🛠️💾↗️
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: docker/build-push-action@v5.2.0
+        with:
+          context: ./2_supplychain/2_praxis/DemoContainerSecurity/container/
+          file: ./2_supplychain/2_praxis/DemoContainerSecurity/container/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ntdominikpabst/it-tage-ffm-2023-devops:${{ github.sha }}_PR${{ github.event.number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # - name: Docker Scout 🕵️
+      #   id: docker-scout
+      #   if: ${{ github.event_name == 'pull_request' }}
+      #   uses: docker/scout-action@v1
+      #   with:
+      #     command: compare
+      #     image: ntdominikpabst/it-tage-ffm-2023-devops:${{ github.sha }}_PR${{ github.event.number }}
+      #     to-latest: true
+      #     ignore-base: true
+      #     ignore-unchanged: true
+      #     only-severities: critical,high
+      #     write-comment: true
+      #     github-token: ${{ secrets.GH_TOKEN }}
