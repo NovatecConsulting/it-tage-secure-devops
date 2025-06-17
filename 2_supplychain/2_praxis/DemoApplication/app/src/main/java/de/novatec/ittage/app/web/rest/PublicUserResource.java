@@ -3,7 +3,6 @@ package de.novatec.ittage.app.web.rest;
 import de.novatec.ittage.app.service.UserService;
 import de.novatec.ittage.app.service.dto.UserDTO;
 import java.util.*;
-import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,7 +23,7 @@ public class PublicUserResource {
         Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey")
     );
 
-    private final Logger log = LoggerFactory.getLogger(PublicUserResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PublicUserResource.class);
 
     private final UserService userService;
 
@@ -40,7 +39,7 @@ public class PublicUserResource {
      */
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllPublicUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
-        log.debug("REST request to get all public User names");
+        LOG.debug("REST request to get all public User names");
         if (!onlyContainsAllowedProperties(pageable)) {
             return ResponseEntity.badRequest().build();
         }
@@ -52,14 +51,5 @@ public class PublicUserResource {
 
     private boolean onlyContainsAllowedProperties(Pageable pageable) {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
-    }
-
-    /**
-     * Gets a list of all roles.
-     * @return a string list of all roles.
-     */
-    @GetMapping("/authorities")
-    public List<String> getAuthorities() {
-        return userService.getAuthorities();
     }
 }

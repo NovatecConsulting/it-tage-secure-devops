@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 
 import {
-  navbarSelector,
-  adminMenuSelector,
   accountMenuSelector,
-  registerItemSelector,
+  adminMenuSelector,
+  entityItemSelector,
   loginItemSelector,
   logoutItemSelector,
-  settingsItemSelector,
+  navbarSelector,
   passwordItemSelector,
-  entityItemSelector,
+  registerItemSelector,
+  settingsItemSelector,
 } from './commands';
 
 Cypress.Commands.add('clickOnLoginItem', () => {
@@ -62,5 +61,5 @@ declare global {
   }
 }
 
-// Convert this to a module instead of script (allows import/export)
+// Convert this to a module instead of a script (allows import/export)
 export {};

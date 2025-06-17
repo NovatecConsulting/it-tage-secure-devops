@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,11 +13,9 @@ type JwtToken = {
 
 @Injectable({ providedIn: 'root' })
 export class AuthServerProvider {
-  constructor(
-    private http: HttpClient,
-    private stateStorageService: StateStorageService,
-    private applicationConfigService: ApplicationConfigService,
-  ) {}
+  private readonly http = inject(HttpClient);
+  private readonly stateStorageService = inject(StateStorageService);
+  private readonly applicationConfigService = inject(ApplicationConfigService);
 
   getToken(): string {
     return this.stateStorageService.getAuthenticationToken() ?? '';

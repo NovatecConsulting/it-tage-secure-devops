@@ -10,14 +10,18 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.auditing.DateTimeProvider;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.security.RandomUtil;
 
@@ -28,13 +32,16 @@ import tech.jhipster.security.RandomUtil;
 @Transactional
 class UserServiceIT {
 
-    private static final String DEFAULT_LOGIN = "johndoe";
+    private static final String DEFAULT_LOGIN = "johndoe_service";
 
-    private static final String DEFAULT_EMAIL = "johndoe@localhost";
+    private static final String DEFAULT_EMAIL = "johndoe_service@localhost";
 
     private static final String DEFAULT_FIRSTNAME = "john";
 
     private static final String DEFAULT_LASTNAME = "doe";
+
+    @Autowired
+    private CacheManager cacheManager;
 
     private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
 
@@ -49,16 +56,23 @@ class UserServiceIT {
     @Autowired
     private AuditingHandler auditingHandler;
 
-    @MockBean
+    @MockitoBean
     private DateTimeProvider dateTimeProvider;
 
     private User user;
 
+    private Long numberOfUsers;
+
     @BeforeEach
-    public void init() {
+    void countUsers() {
+        numberOfUsers = userRepository.count();
+    }
+
+    @BeforeEach
+    void init() {
         user = new User();
         user.setLogin(DEFAULT_LOGIN);
-        user.setPassword(RandomStringUtils.randomAlphanumeric(60));
+        user.setPassword(RandomStringUtils.insecure().nextAlphanumeric(60));
         user.setActivated(true);
         user.setEmail(DEFAULT_EMAIL);
         user.setFirstName(DEFAULT_FIRSTNAME);
@@ -68,6 +82,19 @@ class UserServiceIT {
 
         when(dateTimeProvider.getNow()).thenReturn(Optional.of(LocalDateTime.now()));
         auditingHandler.setDateTimeProvider(dateTimeProvider);
+    }
+
+    @AfterEach
+    void cleanupAndCheck() {
+        cacheManager
+            .getCacheNames()
+            .stream()
+            .map(cacheName -> this.cacheManager.getCache(cacheName))
+            .filter(Objects::nonNull)
+            .forEach(Cache::clear);
+        userService.deleteUser(DEFAULT_LOGIN);
+        assertThat(userRepository.count()).isEqualTo(numberOfUsers);
+        numberOfUsers = null;
     }
 
     @Test
@@ -150,7 +177,7 @@ class UserServiceIT {
         Instant now = Instant.now();
         when(dateTimeProvider.getNow()).thenReturn(Optional.of(now.minus(4, ChronoUnit.DAYS)));
         user.setActivated(false);
-        user.setActivationKey(RandomStringUtils.random(20));
+        user.setActivationKey(RandomStringUtils.insecure().next(20));
         User dbUser = userRepository.saveAndFlush(user);
         dbUser.setCreatedDate(now.minus(4, ChronoUnit.DAYS));
         userRepository.saveAndFlush(user);

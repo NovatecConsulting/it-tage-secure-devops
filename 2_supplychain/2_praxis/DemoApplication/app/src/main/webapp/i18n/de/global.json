@@ -7,7 +7,8 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entitäten",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "adminAuthority": "Authority"
       },
       "account": {
         "main": "Zugang",
@@ -111,13 +112,14 @@
       "required": "Dieses Feld wird benötigt.",
       "minlength": "Dieses Feld muss mind. {{min}} Zeichen lang sein.",
       "maxlength": "Dieses Feld darf max. {{max}} Zeichen lang sein.",
-      "min": "Dieses Feld muss größer als {{min}} sein.",
-      "max": "Dieses Feld muss kleiner als {{max}} sein.",
+      "min": "Dieses Feld muss mind. {{min}} sein.",
+      "max": "Dieses Feld darf max. {{max}} sein.",
       "minbytes": "Dieses Feld sollte mehr als {{min}} bytes haben.",
       "maxbytes": "Dieses Feld sollte nicht mehr als {{max}} bytes haben.",
       "pattern": "Dieses Feld muss das Muster {{pattern}} erfüllen.",
       "number": "Dieses Feld muss eine Zahl sein.",
-      "datetimelocal": "Dieses Feld muss eine Datums- und Zeitangabe enthalten."
+      "datetimelocal": "Dieses Feld muss eine Datums- und Zeitangabe enthalten.",
+      "patternLogin": "Dieses Feld darf nur Buchstaben, Ziffern und E-Mail-Adressen enthalten."
     },
     "filters": {
       "set": "Folgende Filter sind gesetzt",

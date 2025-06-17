@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-// eslint-disable-next-line spaced-comment
-/// <reference types="cypress" />
 
 // ***********************************************
 // This commands.ts shows you how to
@@ -37,7 +34,6 @@ export const forgetYourPasswordSelector = '[data-cy="forgetYourPasswordSelector"
 export const submitLoginSelector = '[data-cy="submit"]';
 
 // Register
-export const titleRegisterSelector = '[data-cy="registerTitle"]';
 export const usernameRegisterSelector = '[data-cy="username"]';
 export const emailRegisterSelector = '[data-cy="email"]';
 export const firstPasswordRegisterSelector = '[data-cy="firstPassword"]';
@@ -48,7 +44,6 @@ export const submitRegisterSelector = '[data-cy="submit"]';
 export const firstNameSettingsSelector = '[data-cy="firstname"]';
 export const lastNameSettingsSelector = '[data-cy="lastname"]';
 export const emailSettingsSelector = '[data-cy="email"]';
-export const languageSettingsSelector = '[data-cy="langKey"]';
 export const submitSettingsSelector = '[data-cy="submit"]';
 
 // Password
@@ -126,5 +121,5 @@ declare global {
   }
 }
 
-// Convert this to a module instead of script (allows import/export)
+// Convert this to a module instead of a script (allows import/export)
 export {};

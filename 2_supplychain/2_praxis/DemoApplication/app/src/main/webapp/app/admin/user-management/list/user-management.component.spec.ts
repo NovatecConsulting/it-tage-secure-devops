@@ -1,10 +1,8 @@
 jest.mock('app/core/auth/account.service');
 
-import { ComponentFixture, TestBed, waitForAsync, inject, fakeAsync, tick } from '@angular/core/testing';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, fakeAsync, inject, tick, waitForAsync } from '@angular/core/testing';
+import { HttpHeaders, HttpResponse, provideHttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -31,8 +29,8 @@ describe('User Management Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), UserManagementComponent],
-      providers: [{ provide: ActivatedRoute, useValue: { data, queryParamMap } }, AccountService],
+      imports: [UserManagementComponent],
+      providers: [provideHttpClient(), { provide: ActivatedRoute, useValue: { data, queryParamMap } }, AccountService],
     })
       .overrideTemplate(UserManagementComponent, '')
       .compileComponents();
@@ -47,7 +45,7 @@ describe('User Management Component', () => {
   });
 
   describe('OnInit', () => {
-    it('Should call load all on init', inject(
+    it('should call load all on init', inject(
       [],
       fakeAsync(() => {
         // GIVEN
@@ -67,13 +65,13 @@ describe('User Management Component', () => {
 
         // THEN
         expect(service.query).toHaveBeenCalled();
-        expect(comp.users?.[0]).toEqual(expect.objectContaining({ id: 123 }));
+        expect(comp.users()?.[0]).toEqual(expect.objectContaining({ id: 123 }));
       }),
     ));
   });
 
   describe('setActive', () => {
-    it('Should update user and call load all', inject(
+    it('should update user and call load all', inject(
       [],
       fakeAsync(() => {
         // GIVEN
@@ -96,7 +94,7 @@ describe('User Management Component', () => {
         // THEN
         expect(service.update).toHaveBeenCalledWith({ ...user, activated: true });
         expect(service.query).toHaveBeenCalled();
-        expect(comp.users?.[0]).toEqual(expect.objectContaining({ id: 123 }));
+        expect(comp.users()?.[0]).toEqual(expect.objectContaining({ id: 123 }));
       }),
     ));
   });

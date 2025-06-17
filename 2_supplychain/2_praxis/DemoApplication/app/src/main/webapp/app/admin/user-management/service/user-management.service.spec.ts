@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { Authority } from 'app/config/authority.constants';
 import { User } from '../user-management.model';
@@ -13,7 +13,7 @@ describe('User Service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
 
     service = TestBed.inject(UserManagementService);
@@ -45,7 +45,7 @@ describe('User Service', () => {
       });
       const req = httpMock.expectOne({ method: 'GET' });
 
-      req.flush([Authority.USER, Authority.ADMIN]);
+      req.flush([{ name: Authority.USER }, { name: Authority.ADMIN }]);
       expect(expectedResult).toEqual([Authority.USER, Authority.ADMIN]);
     });
 

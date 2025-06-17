@@ -1,4 +1,4 @@
-import { Injectable, SecurityContext, NgZone } from '@angular/core';
+import { Injectable, SecurityContext, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -7,11 +7,11 @@ import { translationNotFoundMessage } from 'app/config/translation.config';
 export type AlertType = 'success' | 'danger' | 'warning' | 'info';
 
 export interface Alert {
-  id?: number;
+  id: number;
   type: AlertType;
   message?: string;
   translationKey?: string;
-  translationParams?: { [key: string]: unknown };
+  translationParams?: Record<string, unknown>;
   timeout?: number;
   toast?: boolean;
   position?: string;
@@ -30,11 +30,8 @@ export class AlertService {
   private alertId = 0;
   private alerts: Alert[] = [];
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private ngZone: NgZone,
-    private translateService: TranslateService,
-  ) {}
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly translateService = inject(TranslateService);
 
   clear(): void {
     this.alerts = [];
@@ -46,36 +43,35 @@ export class AlertService {
 
   /**
    * Adds alert to alerts array and returns added alert.
-   * @param alert      Alert to add. If `timeout`, `toast` or `position` is missing then applying default value.
+   * @param alertToAdd Alert to add. If `timeout`, `toast` or `position` is missing then applying default value.
    *                   If `translateKey` is available then it's translation else `message` is used for showing.
    * @param extAlerts  If missing then adding `alert` to `AlertService` internal array and alerts can be retrieved by `get()`.
    *                   Else adding `alert` to `extAlerts`.
    * @returns  Added alert
    */
-  addAlert(alert: Alert, extAlerts?: Alert[]): Alert {
-    alert.id = this.alertId++;
+  addAlert(alertToAdd: Omit<Alert, 'id'>, extAlerts?: Alert[]): Alert {
+    const alert: Alert = { ...alertToAdd, id: this.alertId++ };
 
     if (alert.translationKey) {
       const translatedMessage = this.translateService.instant(alert.translationKey, alert.translationParams);
       // if translation key exists
       if (translatedMessage !== `${translationNotFoundMessage}[${alert.translationKey}]`) {
         alert.message = translatedMessage;
-      } else if (!alert.message) {
-        alert.message = alert.translationKey;
       }
+      alert.message ??= alert.translationKey;
     }
 
     alert.message = this.sanitizer.sanitize(SecurityContext.HTML, alert.message ?? '') ?? '';
     alert.timeout = alert.timeout ?? this.timeout;
     alert.toast = alert.toast ?? this.toast;
     alert.position = alert.position ?? this.position;
-    alert.close = (alertsArray: Alert[]) => this.closeAlert(alert.id!, alertsArray);
+    alert.close = (alertsArray: Alert[]) => this.closeAlert(alert.id, alertsArray);
 
     (extAlerts ?? this.alerts).push(alert);
 
     if (alert.timeout > 0) {
       setTimeout(() => {
-        this.closeAlert(alert.id!, extAlerts ?? this.alerts);
+        this.closeAlert(alert.id, extAlerts ?? this.alerts);
       }, alert.timeout);
     }
 

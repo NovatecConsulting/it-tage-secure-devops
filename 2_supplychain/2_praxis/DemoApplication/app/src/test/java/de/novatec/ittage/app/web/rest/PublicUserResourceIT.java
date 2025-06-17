@@ -1,7 +1,6 @@
 package de.novatec.ittage.app.web.rest;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -9,11 +8,15 @@ import de.novatec.ittage.app.IntegrationTest;
 import de.novatec.ittage.app.domain.User;
 import de.novatec.ittage.app.repository.UserRepository;
 import de.novatec.ittage.app.security.AuthoritiesConstants;
-import jakarta.persistence.EntityManager;
+import de.novatec.ittage.app.service.UserService;
+import java.util.Objects;
+import java.util.Set;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -28,13 +31,11 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 class PublicUserResourceIT {
 
-    private static final String DEFAULT_LOGIN = "johndoe";
-
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private EntityManager em;
+    private UserService userService;
 
     @Autowired
     private CacheManager cacheManager;
@@ -43,16 +44,29 @@ class PublicUserResourceIT {
     private MockMvc restUserMockMvc;
 
     private User user;
+    private Long numberOfUsers;
 
     @BeforeEach
-    public void setup() {
-        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
-        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
+    void countUsers() {
+        numberOfUsers = userRepository.count();
     }
 
     @BeforeEach
-    public void initTest() {
-        user = UserResourceIT.initTestUser(userRepository, em);
+    void initTest() {
+        user = UserResourceIT.initTestUser();
+    }
+
+    @AfterEach
+    void cleanupAndCheck() {
+        cacheManager
+            .getCacheNames()
+            .stream()
+            .map(cacheName -> this.cacheManager.getCache(cacheName))
+            .filter(Objects::nonNull)
+            .forEach(Cache::clear);
+        userService.deleteUser(user.getLogin());
+        assertThat(userRepository.count()).isEqualTo(numberOfUsers);
+        numberOfUsers = null;
     }
 
     @Test
@@ -66,21 +80,11 @@ class PublicUserResourceIT {
             .perform(get("/api/users?sort=id,desc").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
-            .andExpect(jsonPath("$.[*].email").doesNotExist())
-            .andExpect(jsonPath("$.[*].imageUrl").doesNotExist())
-            .andExpect(jsonPath("$.[*].langKey").doesNotExist());
-    }
-
-    @Test
-    @Transactional
-    void getAllAuthorities() throws Exception {
-        restUserMockMvc
-            .perform(get("/api/authorities").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").value(hasItems(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)));
+            .andExpect(jsonPath("$.[?(@.id == %d)].login", user.getId()).value(user.getLogin()))
+            .andExpect(jsonPath("$.[?(@.id == %d)].keys()", user.getId()).value(Set.of("id", "login")))
+            .andExpect(jsonPath("$.[*].email").doesNotHaveJsonPath())
+            .andExpect(jsonPath("$.[*].imageUrl").doesNotHaveJsonPath())
+            .andExpect(jsonPath("$.[*].langKey").doesNotHaveJsonPath());
     }
 
     @Test

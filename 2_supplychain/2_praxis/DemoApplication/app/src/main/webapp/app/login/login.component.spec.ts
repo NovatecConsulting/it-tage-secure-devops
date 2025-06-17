@@ -1,11 +1,10 @@
 jest.mock('app/core/auth/account.service');
 jest.mock('app/login/login.service');
 
-import { ElementRef } from '@angular/core';
+import { ElementRef, signal } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { Router, Navigation } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Navigation, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -22,7 +21,7 @@ describe('LoginComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([]), LoginComponent],
+      imports: [LoginComponent],
       providers: [
         FormBuilder,
         AccountService,
@@ -48,7 +47,7 @@ describe('LoginComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call accountService.identity on Init', () => {
+    it('should call accountService.identity on Init', () => {
       // GIVEN
       mockAccountService.identity = jest.fn(() => of(null));
       mockAccountService.getAuthenticationState = jest.fn(() => of(null));
@@ -60,7 +59,7 @@ describe('LoginComponent', () => {
       expect(mockAccountService.identity).toHaveBeenCalled();
     });
 
-    it('Should call accountService.isAuthenticated on Init', () => {
+    it('should call accountService.isAuthenticated on Init', () => {
       // GIVEN
       mockAccountService.identity = jest.fn(() => of(null));
 
@@ -91,7 +90,7 @@ describe('LoginComponent', () => {
       const node = {
         focus: jest.fn(),
       };
-      comp.username = new ElementRef(node);
+      comp.username = signal<ElementRef>(new ElementRef(node));
 
       // WHEN
       comp.ngAfterViewInit();
@@ -120,7 +119,7 @@ describe('LoginComponent', () => {
       comp.login();
 
       // THEN
-      expect(comp.authenticationError).toEqual(false);
+      expect(comp.authenticationError()).toEqual(false);
       expect(mockLoginService.login).toHaveBeenCalledWith(credentials);
       expect(mockRouter.navigate).toHaveBeenCalledWith(['']);
     });
@@ -133,19 +132,19 @@ describe('LoginComponent', () => {
       comp.login();
 
       // THEN
-      expect(comp.authenticationError).toEqual(false);
+      expect(comp.authenticationError()).toEqual(false);
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
 
     it('should stay on login form and show error message on login error', () => {
       // GIVEN
-      mockLoginService.login = jest.fn(() => throwError({}));
+      mockLoginService.login = jest.fn(() => throwError(Error));
 
       // WHEN
       comp.login();
 
       // THEN
-      expect(comp.authenticationError).toEqual(true);
+      expect(comp.authenticationError()).toEqual(true);
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
   });

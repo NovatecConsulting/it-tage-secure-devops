@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
 import { ProfileInfo } from 'app/layouts/profiles/profile-info.model';
@@ -14,7 +14,8 @@ describe('Page Ribbon Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, PageRibbonComponent],
+      imports: [PageRibbonComponent],
+      providers: [provideHttpClient()],
     })
       .overrideTemplate(PageRibbonComponent, '')
       .compileComponents();
@@ -26,7 +27,7 @@ describe('Page Ribbon Component', () => {
     profileService = TestBed.inject(ProfileService);
   });
 
-  it('Should call profileService.getProfileInfo on init', () => {
+  it('should call profileService.getProfileInfo on init', () => {
     // GIVEN
     jest.spyOn(profileService, 'getProfileInfo').mockReturnValue(of(new ProfileInfo()));
 

@@ -51,6 +51,10 @@ public class UserMapper {
             user.setLastName(userDTO.getLastName());
             user.setEmail(userDTO.getEmail());
             user.setImageUrl(userDTO.getImageUrl());
+            user.setCreatedBy(userDTO.getCreatedBy());
+            user.setCreatedDate(userDTO.getCreatedDate());
+            user.setLastModifiedBy(userDTO.getLastModifiedBy());
+            user.setLastModifiedDate(userDTO.getLastModifiedDate());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
@@ -63,15 +67,14 @@ public class UserMapper {
         Set<Authority> authorities = new HashSet<>();
 
         if (authoritiesAsString != null) {
-            authorities =
-                authoritiesAsString
-                    .stream()
-                    .map(string -> {
-                        Authority auth = new Authority();
-                        auth.setName(string);
-                        return auth;
-                    })
-                    .collect(Collectors.toSet());
+            authorities = authoritiesAsString
+                .stream()
+                .map(string -> {
+                    Authority auth = new Authority();
+                    auth.setName(string);
+                    return auth;
+                })
+                .collect(Collectors.toSet());
         }
 
         return authorities;

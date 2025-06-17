@@ -11,7 +11,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-export default async (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
+export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
   on('before:browser:launch', (browser, launchOptions) => {
     if (browser.name === 'chrome' && browser.isHeadless) {
       launchOptions.args.push('--disable-gpu');

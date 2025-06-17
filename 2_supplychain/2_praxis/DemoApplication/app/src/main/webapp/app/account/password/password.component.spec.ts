@@ -1,8 +1,7 @@
 jest.mock('app/core/auth/account.service');
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpResponse, provideHttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 
@@ -18,8 +17,8 @@ describe('PasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, PasswordComponent],
-      providers: [FormBuilder, AccountService],
+      imports: [PasswordComponent],
+      providers: [FormBuilder, AccountService, provideHttpClient()],
     })
       .overrideTemplate(PasswordComponent, '')
       .compileComponents();
@@ -40,9 +39,9 @@ describe('PasswordComponent', () => {
     // WHEN
     comp.changePassword();
     // THEN
-    expect(comp.doNotMatch).toBe(true);
-    expect(comp.error).toBe(false);
-    expect(comp.success).toBe(false);
+    expect(comp.doNotMatch()).toBe(true);
+    expect(comp.error()).toBe(false);
+    expect(comp.success()).toBe(false);
   });
 
   it('should call Auth.changePassword when passwords match', () => {
@@ -79,14 +78,14 @@ describe('PasswordComponent', () => {
     comp.changePassword();
 
     // THEN
-    expect(comp.doNotMatch).toBe(false);
-    expect(comp.error).toBe(false);
-    expect(comp.success).toBe(true);
+    expect(comp.doNotMatch()).toBe(false);
+    expect(comp.error()).toBe(false);
+    expect(comp.success()).toBe(true);
   });
 
   it('should notify of error if change password fails', () => {
     // GIVEN
-    jest.spyOn(service, 'save').mockReturnValue(throwError('ERROR'));
+    jest.spyOn(service, 'save').mockReturnValue(throwError(Error));
     comp.passwordForm.patchValue({
       newPassword: 'myPassword',
       confirmPassword: 'myPassword',
@@ -96,8 +95,8 @@ describe('PasswordComponent', () => {
     comp.changePassword();
 
     // THEN
-    expect(comp.doNotMatch).toBe(false);
-    expect(comp.success).toBe(false);
-    expect(comp.error).toBe(true);
+    expect(comp.doNotMatch()).toBe(false);
+    expect(comp.success()).toBe(false);
+    expect(comp.error()).toBe(true);
   });
 });
