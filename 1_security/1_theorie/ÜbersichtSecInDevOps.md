@@ -4,9 +4,17 @@
 
 Sicherheit sollte nach der _Shift-Left-Security_ Analogie heute im gesamten Softwarelebenszyklus (SDLC) verankert sein.
 
-Die wesentlichen Teile eines SDLC sind in der nachfolgenden Abbildung zu sehen.
+## Softwarelebenszyklus (SDLC)
+
+Die wesentlichen Teile eines SDLC (SOftware Development Lifecycle) sind in der nachfolgenden Abbildung zu sehen.
 
 ![Secure Software Development Lifecycle](../99_assets/images/secure_software_development_lifecycle.png)
+
+
+### Reifegradanalysen 
+
+Mittels [OWASP SAMM (Software Assurance Maturity Model)](https://owaspsamm.org/about/) kann ein vorhandener SDLC messbar mewertet werden inwieweit hier die Sicherheit integriert ist.
+Aus den Ergebnissen können dann konkrete Handlungsempfehlungen zur Verbesserung der Sicherheit für alle Phasen des SDLC abgeleitet und umgesetzt werden.
 
 ## Anforderungen für Security
 
@@ -35,12 +43,14 @@ Ein Datenflussdiagramm ist aus sehr einfachen Elementen aufgebaut, die in der na
 
 ### Application Security Verification Standard (OWASP)
 
-Mit Hilfe von ASVS bekommt man einen umfassenden Katalog immer wieder relevanten Anforderungen für Security an die Hand.  
+Mit Hilfe von [ASVS](https://github.com/OWASP/ASVS/tree/v5.0.0/5.0/en) bekommt man einen umfassenden Katalog immer wieder relevanten Anforderungen für Security an die Hand.  
 Je nach erforderlichem Sicherheitslevel sollten die in diesem Guide aufgeführten Anforderungen von typischen Anwendungen erfüllt werden.  
 
 Die meisten aufgeführten Anforderungen können durch automatisierte Tests anhand der aufgeführten Akzeptanzkriterien abgedeckt werden.
 
 ![ASVS](../99_assets/images/asvs.png)
+
+Inzwischen ist ASVS in Version 5.0 angelangt. Hier wurden insbesondere neue Anforderungen bzg. OAuth und OpenID Connect hinzugefügt sowie Anforderungen für Self-Contained Tokens (JWT) erweitert.
 
 ## Sichere Architektur und Designprinzipien
 
@@ -63,6 +73,8 @@ Die meisten aufgeführten Anforderungen können durch automatisierte Tests anhan
 * Vermeidung unsicherer APIs
 
 ### Referenzen und weiterführende Links
+
+* [OWASP SAMM](https://owaspsamm.org/about/)
 
 * [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/)
 
