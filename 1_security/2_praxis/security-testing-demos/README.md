@@ -65,7 +65,7 @@ After you have configured the project in SonarQube you can trigger the project a
 ```
 ./mvnw sonar:sonar -Dsonar.projectKey=PROJECT_KEY 
                              -Dsonar.projectName='PROJECT_NAME' 
-                             -Dsonar.host.url=http://localhost:9000 
+                             -Dsonar.host.url=http://localhost:8085 
                              -Dsonar.token=THE_GENERATED_TOKEN  
 ```
 

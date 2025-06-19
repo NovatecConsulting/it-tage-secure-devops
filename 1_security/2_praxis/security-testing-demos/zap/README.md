@@ -2,7 +2,7 @@
 
 ## Standard image (amd64)
 
-Pull the image using `docker pull owasp/zap2docker-stable`.
+Pull the image using `docker pull ghcr.io/zaproxy/zaproxy:stable`.
 
 ## Apple M1 (arm64)
 
@@ -17,6 +17,9 @@ To build it
 5. Tag the image using `docker tag <image-id> owasp/zap2docker-stable:latest` (replace image-id with correct one)
 
 ## Run Zap Scan
+
+First you have to query your public ip address.
+You may do that via [https://whatismyipaddress.com](https://whatismyipaddress.com).
 
 ### Baseline Scan
 

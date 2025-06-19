@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import jakarta.servlet.Filter;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -27,7 +27,7 @@ class SqlInjectionPreventionTests {
 
     private static final String SQL_INJECTION_PAYLOAD = "invalid' or 1=1--";
 
-    @MockBean(name = "springSecurityFilterChain")
+    @MockitoBean(name = "springSecurityFilterChain")
     Filter springSecurityFilterChain;
 
     @Autowired
