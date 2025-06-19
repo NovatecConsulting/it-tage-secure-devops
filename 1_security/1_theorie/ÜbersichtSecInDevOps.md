@@ -13,7 +13,7 @@ Die wesentlichen Teile eines SDLC (SOftware Development Lifecycle) sind in der n
 
 ### Reifegradanalysen 
 
-Mittels [OWASP SAMM (Software Assurance Maturity Model)](https://owaspsamm.org/about/) kann ein vorhandener SDLC messbar mewertet werden inwieweit hier die Sicherheit integriert ist.
+Mittels [OWASP SAMM (Software Assurance Maturity Model)](https://owaspsamm.org/about/) kann ein vorhandener SDLC messbar bewertet werden inwieweit hier die Sicherheit integriert ist.
 Aus den Ergebnissen können dann konkrete Handlungsempfehlungen zur Verbesserung der Sicherheit für alle Phasen des SDLC abgeleitet und umgesetzt werden.
 
 ## Anforderungen für Security
