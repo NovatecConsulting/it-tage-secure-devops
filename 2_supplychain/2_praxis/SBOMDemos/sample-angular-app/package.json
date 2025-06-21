@@ -23,7 +23,7 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.0.5",
+    "@angular-devkit/build-angular": "^20.0.3",
     "@angular/cli": "^17.0.5",
     "@angular/compiler-cli": "^17.0.0",
     "@cyclonedx/cyclonedx-npm": "^1.14.3",
