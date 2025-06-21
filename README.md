@@ -1,48 +1,40 @@
-!["Novatec perfect flow"](./99_assets/images/cgi-repo-banner.jpg)
+!["CGI Banner"](./99_assets/images/cgi-repo-banner.jpg)
 # DevSecOps-Workshop – Agile Sicherheit in der Software-Entwicklung
 
-Willkommen zum DevSecOps-Workshop von Novatec. In diesem Workshop lernen Sie die Grundlagen von DevOps und Security kennen und erfahren, wie Sie Sicherheit in Ihre Software-Entwicklung integrieren können.
-Dieses Repository enthält alle Übungen und Materialien, die während des Workshops verwendet werden.
+Willkommen zum interaktiven DevSecOps-Workshop von CGI (ehemals Novatec)!  
+Dieser Workshop richtet sich an alle, die moderne Softwareentwicklung sicher gestalten wollen – ohne den Flow zu verlieren.  
 
-## Inhalt
+## 🧭 Was erwartet dich?
 
-Der Workshop ist in drei Hauptbereiche unterteilt:
+In einem praxisnahen Format (remote, 9–16 Uhr) lernst du, wie DevOps und Security sinnvoll miteinander verbunden werden können.  
+Der Workshop gliedert sich in drei Module:
 
-1. [**Grundlagen DevOps**](0_devops/README.md)
+1. **DevOps Essentials** – CI/CD, GitOps, Automatisierung
+2. **Secure by Design** – Threat Modeling, Secure Coding, Testautomatisierung
+3. **Supply Chain Security** – SBOM, Container Hardening, Compliance
 
-   - Einführung in DevOps
-   - DevOps Prinzipien
-   - Continuous Integration (CI) und Continuous Delivery (CD)
-   - DevOps mit Fokus auf Security
+Jedes Modul besteht aus:
+- Kurzen Theorieimpulsen
+- Hands-on Übungen
+- Diskussionen zu Best Practices
 
-2. [**Grundlagen Security**](1_security/README.md)
+## 🛠 Voraussetzungen
 
-   - Sicherheitsgrundlagen für Entwickler
-   - Bedrohungsmodellierung
-   - Sicherheitsanforderungen
-   - Testautomatisierung für Security
-   - Security Observabilty
+- Grundkenntnisse in Softwareentwicklung
+- Git-Basiswissen
+- Docker oder Container-Erfahrung von Vorteil
 
-3. [**Security in der Supplychain**](2_supplychain/README.md)
+## 📂 Inhalte des Repositories
 
-   - Sicherheitsaspekte in der Lieferkette
-   - Container-Sicherheit
-   - Integration von Sicherheitsprüfungen
-   - ...
+Die Inhalte findest du in den folgenden Ordnern:
 
-## Struktur des Repositories
+- [0_devops/](./0_devops/) – DevOps Grundlagen und Übungen  
+- [1_security/](./1_security/) – Security Essentials, Automation, Culture  
+- [2_supplychain/](./2_supplychain/) – Supply Chain Security, Compliance, Tools
 
-Das Repository ist nach den Workshop-Bereichen strukturiert. Jeder Bereich enthält einen separaten Ordner mit den entsprechenden theoretischen Grundlagen und praktischen Teilen.
+## Slido
 
-- [**0_devops/**](./0_devops/)
-  - Enthält Übungen und Materialien zu den Grundlagen von DevOps.
-
-- [**1_security/**](./1_security/)
-  - Enthält Übungen und Materialien zu den Grundlagen der Sicherheit.
-
-- [**2_supplychain/**](./2_supplychain/)
-  - Enthält Übungen und Materialien zu Sicherheitsaspekten in der Supplychain.
-
-## Umfrage zur Erwartungshaltung
-
-![Umfrage zur Erwartungshaltung - Team 1](./99_assets/images/qr-code-team1.png)
+![Umfrage zur Erwartungshaltung](./99_assets/images/qr-code-slido-2025.png).   
+Slido Code:    
+1011222   
+https://app.sli.do/event/xjo7kTazazEY3AxixgNJ8G
