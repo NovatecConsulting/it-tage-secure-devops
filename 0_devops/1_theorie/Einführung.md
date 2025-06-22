@@ -90,5 +90,3 @@ DevOps ist aus der Erkenntnis entstanden, dass agile Methoden alleine nicht reic
 * [The DevOps Handbook](https://www.goodreads.com/book/show/26083308-the-devops-handbook)
 * [Accelerate – Forsgren et al.](https://www.goodreads.com/book/show/39080433-accelerate)
 * [The Phoenix Project – Kim et al.](https://www.goodreads.com/book/show/17255186-the-phoenix-project)
-
-

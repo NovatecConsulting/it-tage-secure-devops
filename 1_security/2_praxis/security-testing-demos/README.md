@@ -38,7 +38,7 @@ The security tests include the following types:
   * Security Architecture Tests (using [ArchUnit](https://www.archunit.org/))
   * Input Validation Tests
   * Broken Authentication Tests
-* Integration Test Layer    
+* Integration Test Layer
   * Security Misconfiguration Tests
   * Injection (SQL Injection) Tests
   * Broken Access Control Tests
@@ -54,7 +54,7 @@ To check the project with the OSS semgrep scanner just perform this command insi
 ```shell
 semgrep scan --config auto
 ```
-  
+
 #### SonarQube
 
 To use SonarQube for security analysis the easiest way is the provided docker container.
@@ -63,11 +63,10 @@ Just follow the [Getting Started Guide](https://docs.sonarqube.org/latest/setup/
 After you have configured the project in SonarQube you can trigger the project analysis by issuing the following command:
 
 ```
-./mvnw sonar:sonar -Dsonar.projectKey=PROJECT_KEY 
-                             -Dsonar.projectName='PROJECT_NAME' 
-                             -Dsonar.host.url=http://localhost:8085 
-                             -Dsonar.token=THE_GENERATED_TOKEN  
+./mvnw sonar:sonar -Dsonar.projectKey=PROJECT_KEY
+                             -Dsonar.projectName='PROJECT_NAME'
+                             -Dsonar.host.url=http://localhost:8085
+                             -Dsonar.token=THE_GENERATED_TOKEN
 ```
 
 Please replace _PROJECT_KEY_ and _PROJECT_TOKEN_ with your own values.
-

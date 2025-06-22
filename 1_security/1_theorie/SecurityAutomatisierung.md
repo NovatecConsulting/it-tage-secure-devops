@@ -17,7 +17,7 @@
 * Security Tools für die CI-/CD-Pipeline
   ![CICD Tooling](../99_assets/images/CICD_tools.png)
 
-Eine beispielhafte Pipeline mit GitHub Actions ist in diesem [Projekt](https://github.com/andifalk/supply-chain-security) zu finden.  
+Eine beispielhafte Pipeline mit GitHub Actions ist in diesem [Projekt](https://github.com/andifalk/supply-chain-security) zu finden.
 
 * Code Reviews
 
@@ -27,13 +27,13 @@ Eine beispielhafte Pipeline mit GitHub Actions ist in diesem [Projekt](https://g
 * Software Composition Analysis (SCA)
   ![SCA](../99_assets/images/SCA.png)
 
-  
+
 
 ## Security Observability
 
 Um jederzeit auskunftsfähig bezüglich der Sicherheit aller Anwendungen und Umgebungen zu sein werden entsprechende Protokollierungen und ein Monitoring benötigt.
 
-Heute moderne Observability Systeme beinhalten meist ein SIEM (Security Information and Event System).  
+Heute moderne Observability Systeme beinhalten meist ein SIEM (Security Information and Event System).
 Mit diesem werden alle damit verbundenen Logs, Metriken und Ereignisse verknüpft so dass das SIEM mit Hilfe von Künstlicher Intelligenz und Machine Learning automatisiert Angriffspatterns erkennen kann.  Darüber hinaus sind damit dann auch (semi-)automatische Reaktionsmöglichkeiten verbunden.
 
 ![SIEM](../99_assets/images/siem.png)

@@ -4,4 +4,3 @@ replacer.full_list(0).matchtype=REQ_HEADER
 replacer.full_list(0).matchstr=Authorization
 replacer.full_list(0).regex=false
 replacer.full_list(0).replacement=Basic YnJ1Y2Uud2F5bmVAZXhhbXBsZS5jb206d2F5bmU=
-

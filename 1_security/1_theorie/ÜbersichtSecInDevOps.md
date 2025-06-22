@@ -11,7 +11,7 @@ Die wesentlichen Teile eines SDLC (SOftware Development Lifecycle) sind in der n
 ![Secure Software Development Lifecycle](../99_assets/images/secure_software_development_lifecycle.png)
 
 
-### Reifegradanalysen 
+### Reifegradanalysen
 
 Mittels [OWASP SAMM (Software Assurance Maturity Model)](https://owaspsamm.org/about/) kann ein vorhandener SDLC messbar bewertet werden inwieweit hier die Sicherheit integriert ist.
 Aus den Ergebnissen können dann konkrete Handlungsempfehlungen zur Verbesserung der Sicherheit für alle Phasen des SDLC abgeleitet und umgesetzt werden.
@@ -43,8 +43,8 @@ Ein Datenflussdiagramm ist aus sehr einfachen Elementen aufgebaut, die in der na
 
 ### Application Security Verification Standard (OWASP)
 
-Mit Hilfe von [ASVS](https://github.com/OWASP/ASVS/tree/v5.0.0/5.0/en) bekommt man einen umfassenden Katalog immer wieder relevanten Anforderungen für Security an die Hand.  
-Je nach erforderlichem Sicherheitslevel sollten die in diesem Guide aufgeführten Anforderungen von typischen Anwendungen erfüllt werden.  
+Mit Hilfe von [ASVS](https://github.com/OWASP/ASVS/tree/v5.0.0/5.0/en) bekommt man einen umfassenden Katalog immer wieder relevanten Anforderungen für Security an die Hand.
+Je nach erforderlichem Sicherheitslevel sollten die in diesem Guide aufgeführten Anforderungen von typischen Anwendungen erfüllt werden.
 
 Die meisten aufgeführten Anforderungen können durch automatisierte Tests anhand der aufgeführten Akzeptanzkriterien abgedeckt werden.
 

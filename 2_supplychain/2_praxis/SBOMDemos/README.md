@@ -16,9 +16,9 @@ In der SBOM _industrie_maschine_sbom.json ist eine SPS mit entsprechendem Betrie
 
 ## OWASP Dependency Track
 
-OWASP Dependency Track (nicht zu verwechseln mit OWASP Dependency Check) ist eine Continuous SBOM Analyse Plattform um das Supply Chain Risiko zu reduzieren.  
+OWASP Dependency Track (nicht zu verwechseln mit OWASP Dependency Check) ist eine Continuous SBOM Analyse Plattform um das Supply Chain Risiko zu reduzieren.
 
-Die Idee hier ist, dass alle Softwareprojekte eines Unternehmens regelmäßig ihre SBOM's (Software Bill of Material Listen) im CycloneDX Format auf diese Plattform hochladen.  
+Die Idee hier ist, dass alle Softwareprojekte eines Unternehmens regelmäßig ihre SBOM's (Software Bill of Material Listen) im CycloneDX Format auf diese Plattform hochladen.
 
 Dependency Track analysiert dann kontinuierlich automatisch alle SBOM's auf neue bekannte Schwachstellen und Lizenzverletzungen (u.a. bei Verwendung von GPL Lizenzen bei OSS).
 
@@ -39,7 +39,7 @@ Nach dem Start kann die Anwendung unter [http://localhost:8080](http://localhost
 Benutzer: admin
 Passwort: admin
 
-Anschließend ist noch eine Passwortänderung erforderlich.  
+Anschließend ist noch eine Passwortänderung erforderlich.
 
 Jetzt ist das Tool einsatzbereit und SBOM's aus den hier einhaltenen Projekten können importiert werden.
 
