@@ -1,0 +1,38 @@
+name: Generate SBOM
+on:
+  push:
+    paths:
+      - '0_devops/2_praxis/ContinuousIntegration/Demo/react-app/package-lock.json'
+      - '2_supplychain/2_praxis/DemoApplication/app/pom.xml'
+      - '2_supplychain/2_praxis/DemoContainerSecurity/container/Dockerfile'
+      - '2_supplychain/2_praxis/DemoContainerSecurity/container/requirements.txt'
+  pull_request:
+    paths:
+      - '**/package*.json'
+      - '**/pom.xml'
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM (Syft)
+        run: |
+          syft dir:./0_devops/2_praxis/ContinuousIntegration/Demo/react-app  -o cyclonedx-json > sbom-react.json
+          syft dir:./2_supplychain/2_praxis/DemoApplication/app -o cyclonedx-json > sbom-jhipster.json
+          syft dir:./2_supplychain/2_praxis/DemoContainerSecurity/container -o cyclonedx-json > sbom-containers.json
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: |
+            sbom-react.json
+            sbom-jhipster.json
+            sbom-containers.json
