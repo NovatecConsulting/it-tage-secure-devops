@@ -1,0 +1,43 @@
+[allowlist]
+description = "Globale Allowlist für bekannte False Positives"
+files = [
+  '''.*\.md$''',            # keine Scans in Markdown-Dateien
+  '''test_.*\.py$''',       # keine Scans in Test-Skripten
+]
+paths = []
+
+[rules]
+# Beispiel: AWS Access Key
+[[rules]]
+description = "AWS Access Key"
+id = "aws-access-key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+# Beispiel: GitHub Token
+[[rules]]
+description = "GitHub Token"
+id = "github-pat"
+regex = '''ghp_[A-Za-z0-9_]{36}'''
+tags = ["key", "GitHub"]
+
+# Beispiel: Slack Webhook
+[[rules]]
+description = "Slack Webhook URL"
+id = "slack-webhook"
+regex = '''https://hooks.slack.com/services/T[a-zA-Z0-9]{8}/B[a-zA-Z0-9]{8}/[a-zA-Z0-9]{24}'''
+tags = ["key", "Slack"]
+
+# Beispiel: Generic Password Assignment
+[[rules]]
+description = "Hardcoded password assignment"
+id = "generic-password"
+regex = '''(?i)(password|pwd|pass)\s*[:=]\s*["'].*["']'''
+tags = ["secret", "password"]
+
+# Beispiel: Generic Private Key
+[[rules]]
+description = "Private Key"
+id = "private-key"
+regex = '''-----BEGIN( RSA)? PRIVATE KEY-----'''
+tags = ["secret", "private-key"]
