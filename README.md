@@ -34,7 +34,7 @@ Die Inhalte findest du in den folgenden Ordnern:
 
 ## Slido
 
-![Umfrage zur Erwartungshaltung](./99_assets/images/qr-code-slido-2025.png).
-Slido Code:
-1011222
-https://app.sli.do/event/xjo7kTazazEY3AxixgNJ8G
+![Umfrage zur Erwartungshaltung](./99_assets/images/qr-code-slido-2025.png) \
+Slido Code: \
+1011222 \
+https://app.sli.do/event/xjo7kTazazEY3AxixgNJ8G 
