@@ -22,7 +22,7 @@ jobs:
       JHI_DISABLE_WEBPACK_LOGS: true
       NG_CLI_ANALYTICS: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: v24.2.0
